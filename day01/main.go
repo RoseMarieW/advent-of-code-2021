@@ -12,6 +12,8 @@ func main() {
 	text := readFile()
 	part1 := part1(text)
 	fmt.Println(part1)
+	part2 := part2(text)
+	fmt.Println(part2)
 }
 
 func part1(text []int) int {
@@ -24,8 +26,18 @@ func part1(text []int) int {
 	return numIncreases
 }
 
+func part2(text []int) int {
+	numIncreases := 0
+	for i := 2; i < len(text)-1; i++ {
+		if (text[i] + text[i+1] + text[i-1]) > (text[i] + text[i-1] + text[i-2]) {
+			numIncreases++
+		}
+	}
+	return numIncreases
+}
+
 func readFile() []int {
-	file, err := os.Open("input.txt")
+	file, err := os.Open("testinput.txt")
 
 	if err != nil {
 		log.Fatalf("failed to open")
