@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 	"strconv"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 func main() {
@@ -22,6 +24,7 @@ func part1(text []int) int {
 		if text[i] > text[i-1] {
 			numIncreases++
 		}
+		spew.Dump(numIncreases, i, text[i])
 	}
 	return numIncreases
 }
