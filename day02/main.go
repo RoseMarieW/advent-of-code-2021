@@ -12,8 +12,8 @@ func main() {
 	text := readFile()
 	part1 := part1(text)
 	fmt.Println(part1)
-	//part2 := part2(text)
-	//fmt.Println(part2)
+	part2 := part2(text)
+	fmt.Println(part2)
 }
 
 func part1(text []string) int {
@@ -21,12 +21,33 @@ func part1(text []string) int {
 	depth := 0
 
 	for i := 0; i < len(text)-1; i = i + 2 {
+		x := convert(text[i+1])
 		if text[i] == "forward" {
-			horizontal += convert(text[i+1])
+			horizontal += x
 		} else if text[i] == "down" {
-			depth += convert(text[i+1])
+			depth += x
 		} else {
-			depth -= convert(text[i+1])
+			depth -= x
+		}
+	}
+
+	return depth * horizontal
+}
+
+func part2(text []string) int {
+	horizontal := 0
+	depth := 0
+	aim := 0
+
+	for i := 0; i < len(text)-1; i = i + 2 {
+		x := convert(text[i+1])
+		if text[i] == "forward" {
+			horizontal += x
+			depth += (x * aim)
+		} else if text[i] == "down" {
+			aim += x
+		} else {
+			aim -= x
 		}
 	}
 
