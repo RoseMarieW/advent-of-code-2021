@@ -7,7 +7,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/davecgh/go-spew/spew"
+	 "github.com/davecgh/go-spew/spew"
 )
 
 func main() {
@@ -23,8 +23,8 @@ func part1(text []int) int {
 	for i := 1; i < len(text); i++ {
 		if text[i] > text[i-1] {
 			numIncreases++
+			spew.Dump(numIncreases)
 		}
-		spew.Dump(numIncreases, i, text[i])
 	}
 	return numIncreases
 }
