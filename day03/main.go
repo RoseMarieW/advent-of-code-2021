@@ -17,12 +17,12 @@ func main() {
 	fmt.Println(part2)
 }
 
-func part2(text []string) string {
+func part2(text []string) int64 {
 	//for those reading I did part1 a week ago, got sick, and now I hate how I did part1 sooo lets retry this
 	
 	//dont want to mess with original input
 	oxygen := text
-	oxygenRating := ""
+	var oxygenRating int64
 	position :=0
 	//Oxygen Generator Rating
 	for len(oxygen) >1{
@@ -30,30 +30,36 @@ func part2(text []string) string {
 		max := mostCommonValue(oxygen, position)
 		//discard minimum
 		oxygen = discard(oxygen, position, max)
-		//add value to rating
-		oxygenRating += max
-		position++
+		position ++
 	}
 
 	//CO2 Scrubber Rating
 	//dont want to mess with original input
 	co := text
-	coRating := ""
+	var coRating int64
 	position = 0
 	//Oxygen Generator Rating
 	for len(co) >1{
 		//find min
 		min := leastCommonValue(co, position)
-		println(min)
 		//discard min
 		co = discard(co, position, min)
-		//add value to rating
-		coRating += min
 		position++
 	}
 
-	println(coRating)
-	return oxygenRating
+	if i, err := strconv.ParseInt(oxygen[0], 2, 64); err != nil {
+		fmt.Println(err)
+	} else {
+		oxygenRating=i
+	}
+	
+	if i, err := strconv.ParseInt(co[0], 2, 64); err != nil {
+		fmt.Println(err)
+	} else {
+		coRating=i
+	}
+	
+	return oxygenRating*coRating
 }
 
 func part1(text []string) int64 {
@@ -100,7 +106,7 @@ func part1(text []string) int64 {
 }
 
 func readFile() []string {
-	file, err := os.Open("testinput.txt")
+	file, err := os.Open("input.txt")
 
 	if err != nil {
 		log.Fatalf("failed to open")
