@@ -20,7 +20,7 @@ func part1(text []string) int{
 	var age [9]int
 	age = countFishAge(text,age)
 	//itterate through the days to multiply in fish
-	for i:=1;i<=80;i++{
+	for i:=1;i<=256;i++{
 		age = makeBabies(age)
 	}
 	count := 0
