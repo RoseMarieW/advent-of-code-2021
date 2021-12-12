@@ -50,7 +50,7 @@ func countFishAge(fish []string,age [9]int) [9]int{
 }
 
 func readFile() []string {
-	file, err := os.Open("input.txt")
+	file, err := os.Open("testinput.txt")
 
 	if err != nil {
 		log.Fatalf("failed to open")
