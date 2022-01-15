@@ -15,12 +15,12 @@ func main() {
 }
 
 func part1(octoFloor [10][10]int) int {
-	total := 0
-	for step := 0; step < 100; step++ {
+	for step := 0; step < 500; step++ {
 		//the energy of each octo inc by 1
 		octoFloor = energyInc(octoFloor)
 
 		//octo flashes
+		total := 0
 		for true {
 			//is there any flashes?
 			result, row, col := isFlash(octoFloor)
@@ -92,10 +92,14 @@ func part1(octoFloor [10][10]int) int {
 			total++
 		}
 
+		if total == 100 {
+			return step + 1
+		}
+
 		//reset floor and take another step
 		octoFloor = reset(octoFloor)
 	}
-	return total
+	return 0
 }
 
 func reset(octoFloor [10][10]int) [10][10]int {
