@@ -5,20 +5,24 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 )
 
 func main() {
 	text := readFile()
-	part1 := part1(text)
-	fmt.Println(part1)
+	part2 := part2(text)
+	fmt.Println(part2)
 }
 
-func part1(text []string) int {
-	score := 0
+func part2(text []string) int {
+	var scores []int
 	for i := 0; i < len(text); i++ {
-		score += checkLine(text[i])
+		score := checkLine(text[i])
+		if score != -1 {
+			scores = append(scores, score)
+		}
 	}
-	return score
+	return median(scores)
 }
 
 func checkLine(line string) int {
@@ -39,7 +43,7 @@ func checkLine(line string) int {
 					openBracketStack = openBracketStack[:stackIndex]
 				} else {
 					//this is the mismatch
-					return 3
+					return -1
 				}
 			}
 			if bracket == "]" {
@@ -48,7 +52,7 @@ func checkLine(line string) int {
 					openBracketStack = openBracketStack[:stackIndex]
 				} else {
 					//this is the mismatch
-					return 57
+					return -1
 				}
 			}
 			if bracket == "}" {
@@ -57,7 +61,7 @@ func checkLine(line string) int {
 					openBracketStack = openBracketStack[:stackIndex]
 				} else {
 					//this is the mismatch
-					return 1197
+					return -1
 				}
 			}
 			if bracket == ">" {
@@ -66,16 +70,41 @@ func checkLine(line string) int {
 					openBracketStack = openBracketStack[:stackIndex]
 				} else {
 					//this is the mismatch
-					return 25137
+					return -1
 				}
 			}
 		}
 	}
-	return 0
+	return calcCompletionScore(openBracketStack)
 }
 
+func median(scores []int) int {
+	sort.Ints(scores)
+
+	mNumber := len(scores) / 2
+
+	return scores[mNumber]
+}
+func calcCompletionScore(openBracketStack []string) int {
+	score := 0
+
+	for i := len(openBracketStack) - 1; i >= 0; i-- {
+		score *= 5
+
+		if openBracketStack[i] == "(" {
+			score += 1
+		} else if openBracketStack[i] == "[" {
+			score += 2
+		} else if openBracketStack[i] == "{" {
+			score += 3
+		} else if openBracketStack[i] == "<" {
+			score += 4
+		}
+	}
+	return score
+}
 func readFile() []string {
-	file, err := os.Open("input.txt")
+	file, err := os.Open("testinput.txt")
 
 	if err != nil {
 		log.Fatalf("failed to open")
