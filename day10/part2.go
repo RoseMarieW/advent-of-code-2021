@@ -75,6 +75,7 @@ func checkLine(line string) int {
 			}
 		}
 	}
+	//calculate based on what is left in the stack
 	return calcCompletionScore(openBracketStack)
 }
 
@@ -85,6 +86,7 @@ func median(scores []int) int {
 
 	return scores[mNumber]
 }
+
 func calcCompletionScore(openBracketStack []string) int {
 	score := 0
 
